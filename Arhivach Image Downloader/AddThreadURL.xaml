@@ -1,0 +1,17 @@
+﻿<Controls:MetroWindow x:Class="Arhivach_Image_Downloader.AddThreadURL"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Arhivach_Image_Downloader"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Closed="MetroWindow_Closed"
+        Title="Архивач | Images Downloader" Height="184.423" Width="419.508" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <TextBox Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ссылка на тред" x:Name="txtURL" HorizontalAlignment="Center" Height="27" Margin="26,26,22,0" AcceptsReturn="True" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="366" FontSize="13.333"/>
+        <TextBox Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Куда сохраняем" x:Name="txtOutputDir" HorizontalAlignment="Center" Height="27" Margin="26,62,54,0" AcceptsReturn="True" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="334" FontSize="13.333"/>
+        <Button x:Name="btnAddThread" Content="Добавить" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Width="108" FontSize="10.667" Click="btnAddThread_Click"/>
+        <Button x:Name="btnOpenOutputDir" Content="..." HorizontalAlignment="Left" Margin="365,62,0,0" VerticalAlignment="Top" Width="27" Height="27" Click="btnOpenOutputDir_Click"/>
+    </Grid>
+</Controls:MetroWindow>
