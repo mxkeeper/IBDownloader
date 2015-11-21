@@ -45,6 +45,7 @@ namespace Arhivach_Image_Downloader
         public MainWindow()
         {
             InitializeComponent();
+            chkFullThread.Visibility = Visibility.Hidden;
         }
 
         public void UpdateListView(int downloadedFilesCounter)
