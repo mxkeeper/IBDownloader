@@ -11,4 +11,4 @@ Simple download manager for https://arhivach.org/
 * Add support 2ch.hk
 * Autocheck thread on update
 * Download the entire thread
-* * What you will ask
+* What you will ask
