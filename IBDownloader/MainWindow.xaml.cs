@@ -166,7 +166,21 @@ namespace IBDownloader
 
         private void btnRemoveThreadURL_Click(object sender, RoutedEventArgs e)
         {
-            ClearAllURLs();
+            // Удаляем выделенные треды из списка
+            if (lstViewURLs.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem eachItem in lstViewURLs.SelectedItems)
+                {
+                    lstViewURLs.Items.Remove(eachItem);
+                    int index = lstViewURLs.Items.IndexOf(eachItem);
+                    Threads.RemoveAt(index);
+                }
+            }
+            
+            else
+            {
+                //ClearAllURLs();
+            }
         }
 
         private ProgressBar GetProgressBar(int index)

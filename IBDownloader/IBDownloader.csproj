@@ -88,7 +88,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Downloader.cs" />
+    <Compile Include="Download\Downloader.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="AppStyle.cs" />
     <Compile Include="Thread.cs" />
@@ -138,6 +138,7 @@
   <ItemGroup>
     <Resource Include="1445605573_floppy-disk.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
