@@ -7,7 +7,6 @@ It's simple Imageboard download manager
 * Unlimited number of threads
 
 ## ToDo
-* Add tooltips for buttons and listview
 * Add support 2ch.hk
 * Autocheck thread on update
 * Download the entire thread
