@@ -95,7 +95,7 @@ namespace Arhivach_Image_Downloader
                                 prbProgress.Maximum = LinksCount;
                             }));
                             // Задаём папку для сохранения текущего треда, обрамляя путь C:\folder —> "C:\folder"
-                            Downloader.SavePath = AddQuoteMark(Thread.OutputDir);
+                            Downloader.SavePath = Utils.AddQuoteMark(Thread.OutputDir);
                             if (await Downloader.DownloadList(Links))
                                 Threads[i].Status = msgSuccessful;
                             else
@@ -142,15 +142,6 @@ namespace Arhivach_Image_Downloader
             Threads.Clear();
             lstViewURLs.Items.Clear();
         }
-
-        private static string AddQuoteMark(string input)
-        {
-            var sb = new StringBuilder(input);
-            sb.Insert(0, '"');
-            sb.Insert(sb.Length, '"');
-            return sb.ToString();
-        }
-
 
         private void btnRemoveThreadURL_Click(object sender, RoutedEventArgs e)
         {

@@ -31,5 +31,15 @@ namespace Arhivach_Image_Downloader
             }
         }
         #endregion
+
+        #region AddQuoteMark(string input)
+        public static string AddQuoteMark(string input)
+        {
+            var sb = new StringBuilder(input);
+            sb.Insert(0, '"');
+            sb.Insert(sb.Length, '"');
+            return sb.ToString();
+        }
+        #endregion
     }
 }
