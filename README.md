@@ -1,5 +1,5 @@
-# Arhivach Images Downloader
-Simple download manager for https://arhivach.org/ 
+# IBDownloader
+It's simple Imageboard download manager
 
 ## Features
 
