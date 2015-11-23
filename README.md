@@ -7,12 +7,10 @@ Simple download manager for https://arhivach.org/
 * Unlimited number of threads
 
 ## ToDo
-* Add tooltips for buttons and listview
 * Add support 2ch.hk
 * Autocheck thread on update
 * Download the entire thread
 * What you will ask
 
 ## ToFix
-* Crash when adding new thread while thread is downloading.
 
