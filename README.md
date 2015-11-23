@@ -12,3 +12,7 @@ Simple download manager for https://arhivach.org/
 * Autocheck thread on update
 * Download the entire thread
 * What you will ask
+
+## ToFix
+* Crash when adding new thread while thread is downloading.
+
