@@ -1,5 +1,5 @@
 # IBDownloader
-It's simple Imageboard download manager
+It's simple Imageboard download manager written on C# with use of advanced technologies
 
 ## Features
 
