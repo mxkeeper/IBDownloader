@@ -36,7 +36,12 @@ namespace IBDownloader.Parser
 
             return resultList;
         }
-
+        /// <summary>
+        /// Собираем окончательную ссылку, добавляем имя домена к началу пути 
+        /// "/s/342425/23565465462.jpg" ---> "https://2ch.hk/s/342425/23565465462.jpg"
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         internal override string ExtractImageURL(string input)
         {
             var sb = new StringBuilder(input);

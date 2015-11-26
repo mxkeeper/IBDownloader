@@ -72,72 +72,77 @@ namespace IBDownloader
             }));
         }
 
-        private async void btnDownload_Click(object sender, RoutedEventArgs e)
+        private void btnDownload_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (lstViewURLs.HasItems)
-                {
-                    int i = 0;
-                    CurrentThreadProcessing = 0;
-                    IsDownloading = true;
-                    BlockButtons();
-                    // Скачиваем каждый тред из списка
-                    foreach (var Thread in Threads)
-                    {
-                        if (Thread.Status != msgSuccessful)
-                        {
-                            // Список ссылок для закачки
-                            List<string> Links = new List<string>();
-                            // Определяем тип борды по ссылке
-                            Board Board = AnalyzerLinks.Do(Thread.Link);
-                            // Обновляем статус закачки
-                            Threads[i].Status = msgInProgress;
-                            Downloader Downloader = new Downloader(this);
-                            // Задаём папку для сохранения текущего треда, обрамляя путь C:\folder —> "C:\folder"
-                            Downloader.SavePath = Utils.AddQuoteMark(Thread.OutputDir);
-                            // Получаем список ссылок для закачки
-                            switch (Board)
-                            {
-                                case Board.Arhivach:
-                                    Arhivach Arhivach = new Arhivach();
-                                    Links = await Arhivach.GetLinksToDownload(Thread.Link);
-                                    break;
-                                case Board.Dvach:
-                                    Dvach Dvach = new Dvach();
-                                    Links = await Dvach.GetLinksToDownload(Thread.Link);
-                                    break;
-                            }
-                            LinksCount = Links.Count;
-
-                            // Установка максимального значения ProgressBar (кол-во ссылок для скачивания)
-                            prbProgress = GetProgressBar(i);
-                            this.Dispatcher.Invoke((Action)(() =>
-                            {
-                                prbProgress.Maximum = LinksCount;
-                            }));
-
-                            if (await Downloader.DownloadList(Links))
-                                Threads[i].Status = msgSuccessful;
-                            else
-                                Threads[i].Status = msgError;
-                        }
-                        i++;
-                        CurrentThreadProcessing++;
-                    }
-                    IsDownloading = false;
-                    UnlockButtons();
-                }
-                else
-                {
-                    btnAddThreadURL_Click(sender, e);
-                }
+                BlockButtons();
+                DownloadThreads(Threads);
+                UnlockButtons();
             }
             catch (Exception exp)
             {
                 MessageBox.Show(exp.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+        }
+
+        private async void DownloadThreads(List<Thread> Threads)
+        {
+            if (lstViewURLs.HasItems)
+            {
+                int i = 0;
+                CurrentThreadProcessing = 0;
+                IsDownloading = true;
+                // Скачиваем каждый тред из списка
+                foreach (var Thread in Threads)
+                {
+                    if (Thread.Status != msgSuccessful)
+                    {
+                        // Список ссылок для закачки
+                        List<string> Links = new List<string>();
+                        // Определяем тип борды по ссылке
+                        Board Board = AnalyzerLinks.Do(Thread.Link);
+                        // Обновляем статус закачки
+                        Threads[i].Status = msgInProgress;
+                        Downloader Downloader = new Downloader(this);
+                        // Задаём папку для сохранения текущего треда, обрамляя путь C:\folder —> "C:\folder"
+                        Downloader.SavePath = Utils.AddQuoteMark(Thread.OutputDir);
+                        // Получаем список ссылок для закачки
+                        switch (Board)
+                        {
+                            case Board.Arhivach:
+                                Arhivach Arhivach = new Arhivach();
+                                Links = await Arhivach.GetLinksToDownload(Thread.Link);
+                                break;
+                            case Board.Dvach:
+                                Dvach Dvach = new Dvach();
+                                Links = await Dvach.GetLinksToDownload(Thread.Link);
+                                break;
+                        }
+                        LinksCount = Links.Count;
+
+                        // Установка максимального значения ProgressBar (кол-во ссылок для скачивания)
+                        prbProgress = GetProgressBar(i);
+                        this.Dispatcher.Invoke((Action)(() =>
+                        {
+                            prbProgress.Maximum = LinksCount;
+                        }));
+
+                        if (await Downloader.DownloadList(Links))
+                            Threads[i].Status = msgSuccessful;
+                        else
+                            Threads[i].Status = msgError;
+                    }
+                    i++;
+                    CurrentThreadProcessing++;
+                }
+                IsDownloading = false;
+            }
+            else
+            {
+                DownloadThreads(Threads);
+            }
         }
 
         private void btnAddThreadURL_Click(object sender, RoutedEventArgs e)
