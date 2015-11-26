@@ -75,10 +75,8 @@ namespace IBDownloader
         private void btnDownload_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
-                BlockButtons();
+            {            
                 DownloadThreads(Threads);
-                UnlockButtons();
             }
             catch (Exception exp)
             {
@@ -93,7 +91,8 @@ namespace IBDownloader
             {
                 int i = 0;
                 CurrentThreadProcessing = 0;
-                IsDownloading = true;
+                IsDownloading = true;                
+                BlockButtons();
                 // Скачиваем каждый тред из списка
                 foreach (var Thread in Threads)
                 {
@@ -138,6 +137,7 @@ namespace IBDownloader
                     CurrentThreadProcessing++;
                 }
                 IsDownloading = false;
+                UnlockButtons();
             }
             else
             {
