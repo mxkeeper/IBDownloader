@@ -13,20 +13,6 @@ namespace IBDownloader.Parser
     {
         HttpClientHandler handler = new HttpClientHandler();
         CookieContainer cookies = new CookieContainer();
-        private bool _downloadEntirePage;
-
-        public bool DownloadEntirePage
-        {
-            get { return _downloadEntirePage; }
-            set { _downloadEntirePage = value; }
-        }
-
-        /*
-        public Parser(bool DownloadEntirePage)
-        {
-            _downloadEntirePage = DownloadEntirePage;
-        }
-        */
 
         public virtual async Task<List<string>> GetLinksToDownload(string url)
         {

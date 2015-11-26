@@ -31,6 +31,7 @@ namespace IBDownloader
         private List<Thread> _Threads = new List<Thread>();
         private int CurrentThreadProcessing = 0;
         private int LinksCount = 0;
+        private bool _downloadEntirePage = false;
         private bool IsDownloading = false;
 
         public List<Thread> Threads
@@ -53,7 +54,7 @@ namespace IBDownloader
         public void UpdateListView(int downloadedFilesCounter)
         {
             Threads[CurrentThreadProcessing].ProgressBarVal = downloadedFilesCounter;
-
+            // Если все ссылки скачаны устанавливаем статус
             if (downloadedFilesCounter == LinksCount)
                 Threads[CurrentThreadProcessing].Status = msgSuccessful;
 
@@ -93,6 +94,8 @@ namespace IBDownloader
                             // Обновляем статус закачки
                             Threads[i].Status = msgInProgress;
                             Downloader Downloader = new Downloader(this);
+                            // Задаём папку для сохранения текущего треда, обрамляя путь C:\folder —> "C:\folder"
+                            Downloader.SavePath = Utils.AddQuoteMark(Thread.OutputDir);
                             // Получаем список ссылок для закачки
                             switch (Board)
                             {
@@ -107,14 +110,13 @@ namespace IBDownloader
                             }
                             LinksCount = Links.Count;
 
-                            // Установка максимального значения ProgressBar
+                            // Установка максимального значения ProgressBar (кол-во ссылок для скачивания)
                             prbProgress = GetProgressBar(i);
                             this.Dispatcher.Invoke((Action)(() =>
                             {
                                 prbProgress.Maximum = LinksCount;
                             }));
-                            // Задаём папку для сохранения текущего треда, обрамляя путь C:\folder —> "C:\folder"
-                            Downloader.SavePath = Utils.AddQuoteMark(Thread.OutputDir);
+
                             if (await Downloader.DownloadList(Links))
                                 Threads[i].Status = msgSuccessful;
                             else
@@ -157,7 +159,6 @@ namespace IBDownloader
                     Threads.RemoveAt(index);
                 }
             }
-
             else
             {
                 //ClearAllURLs();

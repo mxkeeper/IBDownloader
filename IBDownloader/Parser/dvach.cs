@@ -18,17 +18,14 @@ namespace IBDownloader.Parser
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.OptionFixNestedTags = true;
             htmlDoc.LoadHtml(data);
-            //if (htmlDoc.ParseErrors.Count() == 0)
-            //{
-                if (htmlDoc.DocumentNode != null)
-                {
-                    // Выделяем тег, содержащий ссылку на картинку
-                    HtmlNodeCollection Nodes = htmlDoc.DocumentNode.SelectNodes("//a[@class=\"desktop\"]");
+            if (htmlDoc.DocumentNode != null)
+            {
+                // Выделяем тег, содержащий ссылку на картинку
+                HtmlNodeCollection Nodes = htmlDoc.DocumentNode.SelectNodes("//a[@class=\"desktop\"]");
 
-                    foreach (HtmlNode Node in Nodes)
-                        resultList.Add(ExtractImageURL(Node.Attributes["href"].Value));
-                }
-            //}
+                foreach (HtmlNode Node in Nodes)
+                    resultList.Add(ExtractImageURL(Node.Attributes["href"].Value));
+            }
             else
             {
                 return new List<string>();
