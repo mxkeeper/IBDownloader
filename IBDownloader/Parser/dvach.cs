@@ -18,8 +18,8 @@ namespace IBDownloader.Parser
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.OptionFixNestedTags = true;
             htmlDoc.LoadHtml(data);
-            if (htmlDoc.ParseErrors.Count() == 0)
-            {
+            //if (htmlDoc.ParseErrors.Count() == 0)
+            //{
                 if (htmlDoc.DocumentNode != null)
                 {
                     // Выделяем тег, содержащий ссылку на картинку
@@ -28,7 +28,7 @@ namespace IBDownloader.Parser
                     foreach (HtmlNode Node in Nodes)
                         resultList.Add(ExtractImageURL(Node.Attributes["href"].Value));
                 }
-            }
+            //}
             else
             {
                 return new List<string>();

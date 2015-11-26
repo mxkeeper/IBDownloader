@@ -22,11 +22,7 @@ namespace IBDownloader
         public string SavePath
         {
             get { return savePath; }
-            set
-            {
-                savePath = value;
-                TryCreateFolder(savePath);
-            }
+            set { savePath = value; }
         }
 
         public Downloader(MainWindow MainWindow)
@@ -48,14 +44,15 @@ namespace IBDownloader
                     string FileListPath = CreateFileList(LinksList);
                     var proc = new Process();
                     proc.StartInfo.FileName = Aria2cPath;
-                    proc.StartInfo.Arguments = 
+                    proc.StartInfo.Arguments =
                     "--max-connection-per-server=1 " +
                     "--max-concurrent-downloads=1 " +
                     "--uri-selector=inorder " +
+                    "--user-agent=Chrome/46.0.2490.86" +
                     "--check-certificate=false" +
                     "--conditional-get=true " +
-                    "-d "  + savePath + 
-                    " -i "  + FileListPath;
+                    "-d " + savePath +
+                    " -i " + FileListPath;
 
                     proc.StartInfo.UseShellExecute = false;
                     proc.StartInfo.CreateNoWindow = true;
@@ -97,19 +94,6 @@ namespace IBDownloader
             {
                 MessageBox.Show(exp.Message);
                 return String.Empty;
-            }
-        }
-
-        private void TryCreateFolder(string path)
-        {         
-            try
-            {
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-            }
-            catch (Exception exp)
-            {
-                MessageBox.Show(exp.Message);
             }
         }
 
