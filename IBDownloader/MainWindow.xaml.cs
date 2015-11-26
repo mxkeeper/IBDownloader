@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
-using System.Collections;
+using IBDownloader.Parser;
 
 namespace IBDownloader
 {
@@ -86,10 +86,25 @@ namespace IBDownloader
                     {
                         if (Thread.Status != msgSuccessful)
                         {
+                            // Список ссылок для закачки
+                            List<string> Links = new List<string>();
+                            // Определяем тип борды по ссылке
+                            Board Board = AnalyzerLinks.Do(Thread.Link);
+                            // Обновляем статус закачки
                             Threads[i].Status = msgInProgress;
-                            Parser Parser = new Parser(false);
                             Downloader Downloader = new Downloader(this);
-                            List<string> Links = await Parser.GetLinksToDownload(Thread.Link);
+                            // Получаем список ссылок для закачки
+                            switch (Board)
+                            {
+                                case Board.Arhivach:
+                                    Arhivach Arhivach = new Arhivach();
+                                    Links = await Arhivach.GetLinksToDownload(Thread.Link);
+                                    break;
+                                case Board.Dvach:
+                                    Dvach Dvach = new Dvach();
+                                    Links = await Dvach.GetLinksToDownload(Thread.Link);
+                                    break;
+                            }
                             LinksCount = Links.Count;
 
                             // Установка максимального значения ProgressBar
@@ -130,6 +145,25 @@ namespace IBDownloader
             AddThreadURL.Show();
         }
 
+        private void btnRemoveThreadURL_Click(object sender, RoutedEventArgs e)
+        {
+            // Удаляем выделенные треды из списка
+            if (lstViewURLs.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem eachItem in lstViewURLs.SelectedItems)
+                {
+                    lstViewURLs.Items.Remove(eachItem);
+                    int index = lstViewURLs.Items.IndexOf(eachItem);
+                    Threads.RemoveAt(index);
+                }
+            }
+
+            else
+            {
+                //ClearAllURLs();
+            }
+        }
+
         private void AddThreadToList()
         {
             lstViewURLs.Items.Add(new Thread()
@@ -162,25 +196,6 @@ namespace IBDownloader
             LinksCount = 0;
             Threads.Clear();
             lstViewURLs.Items.Clear();
-        }
-
-        private void btnRemoveThreadURL_Click(object sender, RoutedEventArgs e)
-        {
-            // Удаляем выделенные треды из списка
-            if (lstViewURLs.SelectedItems.Count > 0)
-            {
-                foreach (ListViewItem eachItem in lstViewURLs.SelectedItems)
-                {
-                    lstViewURLs.Items.Remove(eachItem);
-                    int index = lstViewURLs.Items.IndexOf(eachItem);
-                    Threads.RemoveAt(index);
-                }
-            }
-            
-            else
-            {
-                //ClearAllURLs();
-            }
         }
 
         private ProgressBar GetProgressBar(int index)

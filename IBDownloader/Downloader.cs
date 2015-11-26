@@ -22,7 +22,11 @@ namespace IBDownloader
         public string SavePath
         {
             get { return savePath; }
-            set { savePath = value; }
+            set
+            {
+                savePath = value;
+                TryCreateFolder(savePath);
+            }
         }
 
         public Downloader(MainWindow MainWindow)
@@ -48,6 +52,7 @@ namespace IBDownloader
                     "--max-connection-per-server=1 " +
                     "--max-concurrent-downloads=1 " +
                     "--uri-selector=inorder " +
+                    "--check-certificate=false" +
                     "--conditional-get=true " +
                     "-d "  + savePath + 
                     " -i "  + FileListPath;
@@ -95,7 +100,20 @@ namespace IBDownloader
             }
         }
 
-        void proc_DataReceived(object sender, DataReceivedEventArgs e)
+        private void TryCreateFolder(string path)
+        {         
+            try
+            {
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+        }
+
+        private void proc_DataReceived(object sender, DataReceivedEventArgs e)
         {
             if (!String.IsNullOrEmpty(e.Data))
             {
