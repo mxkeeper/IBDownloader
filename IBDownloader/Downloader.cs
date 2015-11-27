@@ -16,6 +16,7 @@ namespace IBDownloader
     public class Downloader
     {
         private MainWindow _MainWindow;
+        private Options _Options;
         private string savePath;
         private int downloadedFilesCounter = 0;
         private string Aria2cPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\aria2c.exe";
@@ -25,9 +26,10 @@ namespace IBDownloader
             set { savePath = value; }
         }
 
-        public Downloader(MainWindow MainWindow)
+        public Downloader(MainWindow MainWindow, Options Options)
         {
             _MainWindow = MainWindow;
+            _Options = Options;
         }
 
         private bool Aria2cExists()
@@ -45,9 +47,9 @@ namespace IBDownloader
                     var proc = new Process();
                     proc.StartInfo.FileName = Aria2cPath;
                     proc.StartInfo.Arguments =
-                    "--max-connection-per-server=1 " +
-                    "--max-concurrent-downloads=1 " +
-                    "--uri-selector=inorder " +
+                    "--max-connection-per-server=" + _Options.MaxConnectionPerServer +
+                    " --max-concurrent-downloads=" + _Options.MaxConcurrentDownloads +
+                    " --uri-selector=inorder " +
                     "--user-agent=Chrome/46.0.2490.86" +
                     "--check-certificate=false" +
                     "--conditional-get=true " +

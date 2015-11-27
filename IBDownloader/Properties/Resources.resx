@@ -124,7 +124,7 @@
   <data name="_1445442458_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1445442458_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_1445444938_icon_57_document_download" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1445444938_icon-57-document-download.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_1448648981_icon_92_inbox_download" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1448648981_icon-92-inbox-download.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

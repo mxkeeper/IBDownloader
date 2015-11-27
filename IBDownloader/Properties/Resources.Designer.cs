@@ -83,9 +83,9 @@ namespace IBDownloader.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1445444938_icon_57_document_download {
+        internal static System.Drawing.Bitmap _1448648981_icon_92_inbox_download {
             get {
-                object obj = ResourceManager.GetObject("_1445444938_icon_57_document_download", resourceCulture);
+                object obj = ResourceManager.GetObject("_1448648981_icon_92_inbox_download", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

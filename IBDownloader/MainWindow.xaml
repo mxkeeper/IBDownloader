@@ -30,19 +30,21 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="btnAddThreadURL" ToolTip="Добавить тред на закачку" HorizontalAlignment="Left" Margin="23,54,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="btnAddThreadURL_Click">
+        <Button x:Name="btnAddThreadURL" ToolTip="Добавить тред на закачку" HorizontalAlignment="Left" Margin="23,44,0,0" VerticalAlignment="Top" Width="42" Height="42" Click="btnAddThreadURL_Click">
             <Image x:Name="imgAddThreadURL" Source="Resources/1445442450_add.png"/>
         </Button>
-        <Button x:Name="btnRemoveThreadURL" ToolTip="Удалить выделенные треды" HorizontalAlignment="Left" Margin="60,54,0,0" VerticalAlignment="Top" Width="32" Height="32" Click="btnRemoveThreadURL_Click">
+        <Button x:Name="btnRemoveThreadURL" ToolTip="Удалить выделенные треды" HorizontalAlignment="Left" Margin="70,44,0,0" VerticalAlignment="Top" Width="42" Height="42" Click="btnRemoveThreadURL_Click">
             <Image x:Name="imgRemoveThreadURL" Source="Resources/1445442458_delete.png"/>
         </Button>
-        <Button x:Name="btnDownload" ToolTip="Начать закачку" HorizontalAlignment="Left" Margin="626,10,0,0" VerticalAlignment="Top" Width="76" Height="76" Click="btnDownload_Click">
+        <Button x:Name="btnDownload" ToolTip="Начать закачку" HorizontalAlignment="Left" Margin="122,44,0,0" VerticalAlignment="Top" Width="42" Height="42" Click="btnDownload_Click">
             <StackPanel>
-                <Image x:Name="imgDownload" Source="Resources/1445444938_icon-57-document-download.png"/>
+                <Image x:Name="imgDownload" Source="Resources/1448648981_icon-92-inbox-download.png"/>
                 <!--<TextBlock>Скачать</TextBlock>-->
             </StackPanel>
         </Button>
-        <CheckBox x:Name="chkAutoRefresh" Content="Автообновление" HorizontalAlignment="Center" Margin="227,11,379,263"/>
-        <CheckBox x:Name="chkFullThread" Content="Скачать тред целиком(страница и картинки)" HorizontalAlignment="Center" Margin="0,50,0,227"/>
+        <CheckBox x:Name="chkAutoRefresh" Content="Автообновление каждые" HorizontalAlignment="Center" Margin="420,11,135,263" Width="168" Checked="chkAutoRefresh_Checked" Unchecked="chkAutoRefresh_Unchecked"/>
+        <CheckBox x:Name="chkFullThread" Content="Скачать тред целиком(страница и картинки)" HorizontalAlignment="Center" Margin="420,50,34,227" Checked="chkFullThread_Checked" Unchecked="chkFullThread_Unchecked"/>
+        <Controls:NumericUpDown x:Name="numAutoUpdateTime" TextAlignment="Center" Minimum ="1" Maximum = "1440" Interval ="1" Value="5" Margin="588,16,56,269" BorderThickness="0"/>
+        <Label x:Name="lblAutoUpdateTime" Content="мин" HorizontalAlignment="Left" Margin="670,16,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Controls:MetroWindow>
