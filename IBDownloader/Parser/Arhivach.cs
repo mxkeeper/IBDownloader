@@ -40,6 +40,11 @@ namespace IBDownloader.Parser
             return resultList;
         }
 
+        /// <summary>
+        /// Извлекаем ссылку на изображение(видео) из строки
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         internal override string ExtractImageURL(string input)
         {
             int IndexBeginLink = input.IndexOf("http");

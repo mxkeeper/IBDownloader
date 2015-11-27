@@ -72,12 +72,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppTheme.xaml.cs">
+      <DependentUpon>AppTheme.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Options.cs" />
     <Compile Include="Parser\AnalyzerLinks.cs" />
     <Compile Include="Parser\Boards.cs" />
     <Compile Include="Parser\dvach.cs" />
     <Compile Include="Parser\arhivach.cs" />
     <Compile Include="Utils.cs" />
     <Page Include="AddThreadURL.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,12 +145,11 @@
     <Resource Include="Resources\1445442458_delete.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\1445444938_icon-57-document-download.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="1445605573_floppy-disk.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\1448648981_icon-92-inbox-download.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

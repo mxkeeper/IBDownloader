@@ -10,6 +10,7 @@ namespace IBDownloader.Parser
     {
         Arhivach,
         Dvach,
+
         Unidentified
     }
 }

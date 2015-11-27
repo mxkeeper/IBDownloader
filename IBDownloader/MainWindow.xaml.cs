@@ -27,11 +27,11 @@ namespace IBDownloader
         private const string msgInProgress = "Скачиваем";
         private const string msgError = "Ошибка скачивания";
 
+        private Options Options = new Options();
         private ProgressBar prbProgress;
         private List<Thread> _Threads = new List<Thread>();
         private int CurrentThreadProcessing = 0;
         private int LinksCount = 0;
-        private bool _downloadEntirePage = false;
         private bool IsDownloading = false;
 
         public List<Thread> Threads
@@ -54,7 +54,7 @@ namespace IBDownloader
         public void UpdateListView(int downloadedFilesCounter)
         {
             Threads[CurrentThreadProcessing].ProgressBarVal = downloadedFilesCounter;
-            // Если все ссылки скачаны устанавливаем статус
+            // Если все ссылки скачаны — устанавливаем статус
             if (downloadedFilesCounter == LinksCount)
                 Threads[CurrentThreadProcessing].Status = msgSuccessful;
 
@@ -76,7 +76,7 @@ namespace IBDownloader
         {
             try
             {            
-                DownloadThreads(Threads);
+                DownloadThreads(Threads, sender, e);
             }
             catch (Exception exp)
             {
@@ -85,7 +85,7 @@ namespace IBDownloader
 
         }
 
-        private async void DownloadThreads(List<Thread> Threads)
+        private async void DownloadThreads(List<Thread> Threads, object sender, RoutedEventArgs e)
         {
             if (lstViewURLs.HasItems)
             {
@@ -104,7 +104,7 @@ namespace IBDownloader
                         Board Board = AnalyzerLinks.Do(Thread.Link);
                         // Обновляем статус закачки
                         Threads[i].Status = msgInProgress;
-                        Downloader Downloader = new Downloader(this);
+                        Downloader Downloader = new Downloader(this, Options);
                         // Задаём папку для сохранения текущего треда, обрамляя путь C:\folder —> "C:\folder"
                         Downloader.SavePath = Utils.AddQuoteMark(Thread.OutputDir);
                         // Получаем список ссылок для закачки
@@ -141,7 +141,7 @@ namespace IBDownloader
             }
             else
             {
-                DownloadThreads(Threads);
+                btnAddThreadURL_Click(sender, e);
             }
         }
 
@@ -212,6 +212,26 @@ namespace IBDownloader
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ProcessHelper.KillProcessByName("aria2c");
+        }
+
+        private void chkAutoRefresh_Checked(object sender, RoutedEventArgs e)
+        {
+            Options.AutoRefresh = true;
+        }
+
+        private void chkAutoRefresh_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void chkFullThread_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void chkFullThread_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

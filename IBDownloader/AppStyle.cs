@@ -18,7 +18,7 @@ namespace IBDownloader
             // now set the Green accent and dark theme
             ThemeManager.ChangeAppStyle(Application.Current,
                                         ThemeManager.GetAccent("Blue"),
-                                        ThemeManager.GetAppTheme("BaseDark"));
+                                        ThemeManager.GetAppTheme("BaseLight"));
 
             base.OnStartup(e);
         }
