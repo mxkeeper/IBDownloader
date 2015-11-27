@@ -221,17 +221,17 @@ namespace IBDownloader
 
         private void chkAutoRefresh_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            Options.AutoRefresh = false;
         }
 
         private void chkFullThread_Checked(object sender, RoutedEventArgs e)
         {
-
+            Options.DownloadEntirePage = true;
         }
 
         private void chkFullThread_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            Options.DownloadEntirePage = false;
         }
     }
 }
