@@ -224,14 +224,23 @@ namespace IBDownloader
 
         private void chkAutoRefresh_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            Options.AutoRefresh = false;
         }
 
         private void btnChangeStyle_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< HEAD
             AppTheme AppTheme = new AppTheme();
             AppTheme.Owner = this;
             AppTheme.Show();
+=======
+            Options.DownloadEntirePage = true;
+        }
+
+        private void chkFullThread_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Options.DownloadEntirePage = false;
+>>>>>>> 24a0dd46a20d0825168650491b83c122aeee76f8
         }
     }
 }
