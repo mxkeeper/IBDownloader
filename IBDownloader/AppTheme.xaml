@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="AppTheme" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Height="215.897" Width="438.838">
     <Grid>
-        <Button x:Name="btnApply" Content="Применить" HorizontalAlignment="Center" Margin="0,133,0,0" VerticalAlignment="Top" Width="104" Click="btnApply_Click"/>
+        <Button x:Name="btnApply" Content="Ok" HorizontalAlignment="Center" Margin="0,133,0,0" VerticalAlignment="Top" Width="85" Click="btnApply_Click"/>
         <Label x:Name="lblThemeStyle" Content="Оформление темы" HorizontalAlignment="Left" Margin="68,31,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblThemeColor" Content="Цвет" HorizontalAlignment="Left" Margin="227,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.846,0.545"/>
         <ListBox x:Name="lstThemeStyle" BorderThickness="1" SelectionChanged="lstThemeStyle_SelectionChanged" HorizontalAlignment="Left" Height="53" Margin="68,63,0,0" VerticalAlignment="Top" Width="114">

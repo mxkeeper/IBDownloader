@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using IBDownloader.Parser;
+
 
 namespace IBDownloader
 {
@@ -67,6 +69,7 @@ namespace IBDownloader
                 {
                     Link = Threads[CurrentThreadProcessing].Link,
                     OutputDir = Threads[CurrentThreadProcessing].OutputDir,
+                    DownloadEntirePage = Threads[CurrentThreadProcessing].DownloadEntirePage,
                     Progress = Threads[CurrentThreadProcessing].ProgressBarVal + "/" + LinksCount,
                     Status = Threads[CurrentThreadProcessing].Status
                 };
@@ -178,6 +181,7 @@ namespace IBDownloader
             {
                 Link = Threads[Threads.Count - 1].Link,
                 OutputDir = Threads[Threads.Count - 1].OutputDir,
+                DownloadEntirePage = Threads[Threads.Count - 1].DownloadEntirePage,
                 Progress = "0/0",
                 Status = msgInQueue
             });
@@ -229,10 +233,12 @@ namespace IBDownloader
 
         private void btnChangeStyle_Click(object sender, RoutedEventArgs e)
         {
-
+            /*
             AppTheme AppTheme = new AppTheme();
             AppTheme.Owner = this;
             AppTheme.Show();
+            */
+
         }
     }
 }

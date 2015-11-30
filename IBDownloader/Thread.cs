@@ -15,9 +15,9 @@ namespace IBDownloader
 
         public string Link { get; set; }
         public string OutputDir { get; set; }
+        public string DownloadEntirePage { get; set; }
         public string Progress { get; set; }
         public int ProgressBarVal { get; set; }
-        public bool DownloadEntirePage { get; set; }
         public string Status { get; set; }
     }
 }

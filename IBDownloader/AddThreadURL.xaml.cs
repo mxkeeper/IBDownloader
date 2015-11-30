@@ -43,6 +43,12 @@ namespace IBDownloader
             if (ValidateURL() && IsSetOutputDir())
             {
                 Thread.Link = txtURL.Text;
+
+                if ((bool)chkFullThread.IsChecked)
+                    Thread.DownloadEntirePage = "X";
+                else
+                    Thread.DownloadEntirePage = string.Empty;
+
                 List<Thread> Threads = _MainWindow.Threads;
                 Threads.Add(Thread);
                 _MainWindow.Threads = Threads;

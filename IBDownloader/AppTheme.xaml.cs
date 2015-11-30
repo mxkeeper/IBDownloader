@@ -55,7 +55,7 @@ namespace IBDownloader
 
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void ChangeAppStyle(string color, string theme)

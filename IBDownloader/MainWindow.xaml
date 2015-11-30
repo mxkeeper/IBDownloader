@@ -3,15 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:IBDownloader"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         IsMaxRestoreButtonEnabled="False"
         Closing="MetroWindow_Closing"
-        Title="ImageBoard Downloader" Height="340.812" Width="728.637" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="ImageBoard Downloader" Height="340.812" Width="755.637" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
-        <ListView x:Name="lstViewURLs" HorizontalAlignment="Left" Height="202" Margin="23,91,0,0" VerticalAlignment="Top" Width="679" BorderThickness="1">
+        <!--
+        <tb:TaskbarIcon x:Name="myNotifyIcon"
+                    IconSource="/../../1445605573_floppy-disk.ico"
+                    Visibility="Visible"
+                    ToolTipText="Fallback ToolTip for Windows xp"/>
+        -->
+        <ListView x:Name="lstViewURLs" HorizontalAlignment="Left" Height="202" Margin="23,91,0,0" VerticalAlignment="Top" Width="704" BorderThickness="1">
             <ListView.Resources>
+                <DataTemplate x:Key="DownloadEntirePage">
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding DownloadEntirePage}"/>
+                </DataTemplate>
+
                 <DataTemplate x:Key="ProgressBar">
                     <Grid>
                         <ProgressBar x:Name="prbProgress" Value="{Binding ProgressBarVal}" Width="{Binding Path=Width, ElementName=ProgressCell}" Height="{Binding Path=Height, ElementName=ProgressCell}" Margin="0"/>
@@ -23,9 +34,10 @@
                 <GridView>
                     <GridView.Columns>
                         <GridViewColumn Header="URL" Width="210" DisplayMemberBinding="{Binding Link}"></GridViewColumn>
-                        <GridViewColumn Header="Папка" Width="250" DisplayMemberBinding="{Binding OutputDir}"></GridViewColumn>
-                        <GridViewColumn Header="Прогресс" Width="80" CellTemplate="{StaticResource ProgressBar}"></GridViewColumn>
-                        <GridViewColumn Header="Статус" Width="135" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
+                        <GridViewColumn Header="Папка" Width="240" DisplayMemberBinding="{Binding OutputDir}"></GridViewColumn>
+                        <GridViewColumn Header="W"  Width="30" CellTemplate="{StaticResource DownloadEntirePage}"></GridViewColumn>
+                        <GridViewColumn Header="Прогресс" Width="100" CellTemplate="{StaticResource ProgressBar}"></GridViewColumn>
+                        <GridViewColumn Header="Статус" Width="120" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
@@ -46,8 +58,8 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
         </StackPanel>
         <CheckBox x:Name="chkAutoRefresh" Content="Автообновление каждые" HorizontalAlignment="Center" Margin="420,11,135,263" Width="168" Checked="chkAutoRefresh_Checked" Unchecked="chkAutoRefresh_Unchecked"/>
-        <Controls:NumericUpDown x:Name="numAutoUpdateTime" TextAlignment="Center" Minimum ="1" Maximum = "1440" Interval ="1" Value="5" Margin="588,16,56,269" BorderThickness="0"/>
-        <Label x:Name="lblAutoUpdateTime" Content="мин" HorizontalAlignment="Left" Margin="670,16,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnChangeStyle" Content="Скины" HorizontalAlignment="Left" Margin="311,50,0,0" VerticalAlignment="Top" Width="75" Click="btnChangeStyle_Click"/>
+        <Controls:NumericUpDown x:Name="numAutoUpdateTime" TextAlignment="Center" Minimum ="1" Maximum = "1440" Interval ="1" Value="5" Margin="602,17,78,268" BorderThickness="0"/>
+        <Label x:Name="lblAutoUpdateTime" Content="мин" HorizontalAlignment="Left" Margin="672,17,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnChangeStyle" Content="Скины" HorizontalAlignment="Left" Margin="514,55,0,0" VerticalAlignment="Top" Width="121" Click="btnChangeStyle_Click" Height="19"/>
     </Grid>
 </Controls:MetroWindow>
