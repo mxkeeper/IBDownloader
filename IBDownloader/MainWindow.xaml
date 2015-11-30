@@ -43,8 +43,8 @@
             </StackPanel>
         </Button>
         <CheckBox x:Name="chkAutoRefresh" Content="Автообновление каждые" HorizontalAlignment="Center" Margin="420,11,135,263" Width="168" Checked="chkAutoRefresh_Checked" Unchecked="chkAutoRefresh_Unchecked"/>
-        <CheckBox x:Name="chkFullThread" Content="Скачать тред целиком(страница и картинки)" HorizontalAlignment="Center" Margin="420,50,34,227" Checked="chkFullThread_Checked" Unchecked="chkFullThread_Unchecked"/>
         <Controls:NumericUpDown x:Name="numAutoUpdateTime" TextAlignment="Center" Minimum ="1" Maximum = "1440" Interval ="1" Value="5" Margin="588,16,56,269" BorderThickness="0"/>
         <Label x:Name="lblAutoUpdateTime" Content="мин" HorizontalAlignment="Left" Margin="670,16,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnChangeStyle" Content="Скины" HorizontalAlignment="Left" Margin="311,50,0,0" VerticalAlignment="Top" Width="75" Click="btnChangeStyle_Click"/>
     </Grid>
 </Controls:MetroWindow>

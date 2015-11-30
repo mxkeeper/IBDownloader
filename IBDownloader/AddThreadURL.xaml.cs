@@ -106,5 +106,15 @@ namespace IBDownloader
         {
             _MainWindow.Activate();
         }
+
+        private void chkFullThread_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void chkFullThread_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

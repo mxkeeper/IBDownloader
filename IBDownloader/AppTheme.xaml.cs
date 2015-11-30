@@ -11,17 +11,83 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MahApps.Metro;
+using MahApps.Metro.Controls;
 
 namespace IBDownloader
 {
     /// <summary>
     /// Interaction logic for AppTheme.xaml
     /// </summary>
-    public partial class AppTheme : Window
+    public partial class AppTheme : MetroWindow
     {
+        private string[] colors = {
+                            "Red",
+                            "Green",
+                            "Blue",
+                            "Purple",
+                            "Orange",
+                            "Lime",
+                            "Emerald",
+                            "Teal",
+                            "Cyan",
+                            "Cobalt",
+                            "Indigo",
+                            "Violet",
+                            "Pink",
+                            "Magenta",
+                            "Crimson",
+                            "Amber",
+                            "Yellow",
+                            "Brown",
+                            "Olive",
+                            "Steel",
+                            "Mauve",
+                            "Taupe",
+                            "Sienna"};
         public AppTheme()
         {
             InitializeComponent();
+
+            var CurrentTheme = ThemeManager.DetectAppStyle(Application.Current);
+            cmbAppColor.SelectedIndex = Array.IndexOf(colors, CurrentTheme.Item2.Name);
+        }
+
+        private void btnApply_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ChangeAppStyle(string color, string theme)
+        {
+            // get the theme from the window
+            var CurrentTheme = ThemeManager.DetectAppStyle(Application.Current);
+            // now set the Red accent and dark theme
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(color), ThemeManager.GetAppTheme(theme));
+        }
+
+        private void lstThemeStyle_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // get the theme from the window
+            var CurrentTheme = ThemeManager.DetectAppStyle(Application.Current);
+
+            switch (lstThemeStyle.SelectedIndex)
+            {
+                case 0:
+                    ChangeAppStyle(CurrentTheme.Item2.Name, "BaseLight");
+                        break;
+                case 1:
+                    ChangeAppStyle(CurrentTheme.Item2.Name, "BaseDark");
+                    break;
+            }
+        }
+
+        private void cmbAppColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // get the theme from the window
+            var CurrentTheme = ThemeManager.DetectAppStyle(Application.Current);
+
+            ChangeAppStyle(colors[cmbAppColor.SelectedIndex], CurrentTheme.Item1.Name);
         }
     }
 }

@@ -102,7 +102,6 @@
     </Compile>
     <Compile Include="Downloader.cs" />
     <Compile Include="ProcessHelper.cs" />
-    <Compile Include="AppStyle.cs" />
     <Compile Include="Thread.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -47,8 +47,10 @@ namespace IBDownloader
         public MainWindow()
         {
             InitializeComponent();
-            //chkAutoRefresh.Visibility = Visibility.Hidden;
-            //chkFullThread.Visibility = Visibility.Hidden;
+            //chkAutoRefresh.Visibility = Visibility.Hidden;            
+            
+            // Загружаем настройки
+            Options.Load();
         }
 
         public void UpdateListView(int downloadedFilesCounter)
@@ -212,6 +214,7 @@ namespace IBDownloader
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ProcessHelper.KillProcessByName("aria2c");
+            Options.Save();
         }
 
         private void chkAutoRefresh_Checked(object sender, RoutedEventArgs e)
@@ -224,14 +227,11 @@ namespace IBDownloader
 
         }
 
-        private void chkFullThread_Checked(object sender, RoutedEventArgs e)
+        private void btnChangeStyle_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void chkFullThread_Unchecked(object sender, RoutedEventArgs e)
-        {
-
+            AppTheme AppTheme = new AppTheme();
+            AppTheme.Owner = this;
+            AppTheme.Show();
         }
     }
 }
