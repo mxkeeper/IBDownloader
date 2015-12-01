@@ -62,11 +62,7 @@ namespace IBDownloader
         public MainWindow()
         {
             InitializeComponent();
-<<<<<<< HEAD
-=======
-            //chkAutoRefresh.Visibility = Visibility.Hidden;            
-            
->>>>>>> 7690655da53fb56f09fe451b773294787faa7f55
+
             // Загружаем настройки
             Options.Load();
         }
@@ -297,7 +293,6 @@ namespace IBDownloader
 
         private void btnChangeStyle_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
             AppTheme AppTheme = new AppTheme();
             AppTheme.Owner = this;
             AppTheme.Show();
@@ -306,14 +301,6 @@ namespace IBDownloader
         private void numAutoUpdateTime_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             ReStartTimer();
-=======
-            /*
-            AppTheme AppTheme = new AppTheme();
-            AppTheme.Owner = this;
-            AppTheme.Show();
-            */
-
->>>>>>> 7690655da53fb56f09fe451b773294787faa7f55
         }
     }
 }

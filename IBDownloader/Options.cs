@@ -34,27 +34,22 @@ namespace IBDownloader
             set { _AutoRefresh = value; }
         }
 
-<<<<<<< HEAD
         public int AutoUpdateInterval
         {
             get { return _AutoUpdateInterval; }
             set { _AutoUpdateInterval = value; }
         }
 
-=======
->>>>>>> 7690655da53fb56f09fe451b773294787faa7f55
         public void Save()
         {
             var theme = ThemeManager.DetectAppStyle(Application.Current);
 
             Properties.Settings.Default["AppTheme"] = theme.Item1.Name;
             Properties.Settings.Default["AppColor"] = theme.Item2.Name;
-<<<<<<< HEAD
+
             Properties.Settings.Default["AutoRefresh"] = AutoRefresh;
             Properties.Settings.Default["AutoUpdateInterval"] = AutoUpdateInterval;
-            
-=======
->>>>>>> 7690655da53fb56f09fe451b773294787faa7f55
+
             Properties.Settings.Default.Save();
         }
 
@@ -70,12 +65,9 @@ namespace IBDownloader
             ThemeManager.ChangeAppStyle(Application.Current,
                                         ThemeManager.GetAccent(AppColor),
                                         ThemeManager.GetAppTheme(AppTheme));
-<<<<<<< HEAD
-
             AutoRefresh = Convert.ToBoolean(Properties.Settings.Default["AutoRefresh"].ToString());
             AutoUpdateInterval = Convert.ToInt32(Properties.Settings.Default["AutoUpdateInterval"].ToString());
-=======
->>>>>>> 7690655da53fb56f09fe451b773294787faa7f55
+
         }
     }
 }

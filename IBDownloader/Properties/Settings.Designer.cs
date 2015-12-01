@@ -46,7 +46,6 @@ namespace IBDownloader.Properties {
                 this["AppTheme"] = value;
             }
         }
-<<<<<<< HEAD
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -71,7 +70,5 @@ namespace IBDownloader.Properties {
                 this["AutoRefresh"] = value;
             }
         }
-=======
->>>>>>> 7690655da53fb56f09fe451b773294787faa7f55
     }
 }
