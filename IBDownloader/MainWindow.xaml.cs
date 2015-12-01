@@ -53,7 +53,6 @@ namespace IBDownloader
         private void ReStartTimer()
         {
             if (dspTimer.IsEnabled) dspTimer.Stop();
-            Options.AutoUpdateInterval = (int)numAutoUpdateTime.Value;
             dspTimer.Tick += new EventHandler(dspTimer_Tick);
             dspTimer.Interval = new TimeSpan(0, Options.AutoUpdateInterval, 0);
             dspTimer.Start();
@@ -65,6 +64,15 @@ namespace IBDownloader
 
             // Загружаем настройки
             Options.Load();
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Options.AutoRefresh)
+                chkAutoRefresh.IsEnabled = true;
+
+            chkAutoRefresh.IsChecked = Options.AutoRefresh;
+            numAutoUpdateTime.Value = Options.AutoUpdateInterval;
         }
 
         public void UpdateListView(int downloadedFilesCounter)
@@ -228,6 +236,7 @@ namespace IBDownloader
             btnDownload.IsEnabled = false;
             btnAddThreadURL.IsEnabled = false;
             btnRemoveThreadURL.IsEnabled = false;
+            chkAutoRefresh.IsEnabled = false;
         }
 
         private void UnlockButtons()
@@ -235,6 +244,7 @@ namespace IBDownloader
             btnDownload.IsEnabled = true;
             btnAddThreadURL.IsEnabled = true;
             btnRemoveThreadURL.IsEnabled = true;
+            chkAutoRefresh.IsEnabled = true;
         }
 
 
@@ -254,26 +264,35 @@ namespace IBDownloader
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ProcessHelper.KillProcessByName("aria2c");
+
+            if (!(bool)chkAutoRefresh.IsChecked)
+                Options.AutoRefresh = false;
+            Options.AutoUpdateInterval = (int)numAutoUpdateTime.Value;
+
             Options.Save();
         }
 
         private void chkAutoRefresh_Checked(object sender, RoutedEventArgs e)
         {
+            btnAddThreadURL.IsEnabled = false;
+            btnDownload.IsEnabled = false;
+            btnRemoveThreadURL.IsEnabled = false;
             Options.AutoRefresh = true;
-            numAutoUpdateTime.IsEnabled = true;
-            ChangeStatusOnSuccessful(msgAutoRefresh);
+            ChangeStatus(msgAutoRefresh);
             ReStartTimer();
         }
 
         private void chkAutoRefresh_Unchecked(object sender, RoutedEventArgs e)
         {
+            btnAddThreadURL.IsEnabled = true;
+            btnDownload.IsEnabled = true;
+            btnRemoveThreadURL.IsEnabled = true;
             Options.AutoRefresh = false;
-            numAutoUpdateTime.IsEnabled = false;
-            ChangeStatusOnSuccessful(msgSuccessful);
+            ChangeStatus(msgSuccessful);
             dspTimer.Stop();
         }
 
-        private void ChangeStatusOnSuccessful(string status)
+        private void ChangeStatus(string status)
         {
             for (int i = 0; i < Threads.Count; i++)
             {
@@ -284,9 +303,12 @@ namespace IBDownloader
                         Link = Threads[i].Link,
                         OutputDir = Threads[i].OutputDir,
                         DownloadEntirePage = Threads[i].DownloadEntirePage,
-                        Progress = Threads[i].ProgressBarVal + "/" + LinksCount,
+                        Progress = Threads[i].ProgressBarVal + "/" + Threads[i].ProgressBarVal,
                         Status = status
                     };
+                    // Находим нужный ProgressBar в колонке ListView
+                    prbProgress = GetProgressBar(i);
+                    prbProgress.Value = Threads[i].ProgressBarVal;
                 }));
             }
         }
@@ -298,9 +320,11 @@ namespace IBDownloader
             AppTheme.Show();
         }
 
-        private void numAutoUpdateTime_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void numAutoUpdateTime_ValueChanged(object sender, RoutedPropertyChangedEventArgs<System.Nullable<double>> e)
         {
-            ReStartTimer();
+            Options.AutoUpdateInterval = (int)numAutoUpdateTime.Value;
+            if (Options.AutoRefresh)
+                ReStartTimer();
         }
     }
 }

@@ -7,6 +7,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         IsMaxRestoreButtonEnabled="False"
+        Loaded="MetroWindow_Loaded"
         Closing="MetroWindow_Closing"
         Title="ImageBoard Downloader" Height="340.812" Width="764.637" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
@@ -31,8 +32,7 @@
                         <GridViewColumn Header="W"  Width="30" CellTemplate="{StaticResource DownloadEntirePage}"></GridViewColumn>
                         <GridViewColumn Header="Прогресс" Width="100" CellTemplate="{StaticResource ProgressBar}"></GridViewColumn>
                         <GridViewColumn Header="Статус" Width="130" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
-                        <GridViewColumn Header="Статус" Width="120" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
-                    </GridView.Columns>
+                        </GridView.Columns>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -51,9 +51,9 @@
         <StackPanel Orientation="Horizontal" Margin="409,7,308,225">
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
         </StackPanel>
-        <CheckBox x:Name="chkAutoRefresh" Content="Автообновление каждые" HorizontalAlignment="Center" Margin="410,11,135,263" Width="168" Checked="chkAutoRefresh_Checked" Unchecked="chkAutoRefresh_Unchecked"/>
-        <Controls:NumericUpDown x:Name="numAutoUpdateTime" IsEnabled="False" DataContextChanged="numAutoUpdateTime_DataContextChanged" TextAlignment="Center" Minimum ="1" Maximum = "1440" Interval ="1" Value="5" Margin="601,17,84,268" BorderThickness="0" RenderTransformOrigin="0.57,0.536"/>
+        <CheckBox x:Name="chkAutoRefresh" IsEnabled="False" Content="Автообновление каждые" HorizontalAlignment="Center" Margin="410,11,135,263" Width="168" Checked="chkAutoRefresh_Checked" Unchecked="chkAutoRefresh_Unchecked"/>
+        <Controls:NumericUpDown x:Name="numAutoUpdateTime" Value="5" ValueChanged="numAutoUpdateTime_ValueChanged" TextAlignment="Center" Minimum ="1" Maximum = "1440" Interval ="1" Margin="601,17,84,268" BorderThickness="0" RenderTransformOrigin="0.57,0.536"/>
         <Label x:Name="lblAutoUpdateTime" Content="мин" HorizontalAlignment="Left" Margin="675,15,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnChangeStyle" Content="оформление" HorizontalAlignment="Left" Margin="513,55,0,0" VerticalAlignment="Top" Width="136" Click="btnChangeStyle_Click" Height="19"/>
+        <Button x:Name="btnChangeStyle" Content="оформление" HorizontalAlignment="Left" Margin="513,55,0,0" VerticalAlignment="Top" Width="136" Click="btnChangeStyle_Click" Height="19" FontSize="9.333"/>
         </Grid>
 </Controls:MetroWindow>

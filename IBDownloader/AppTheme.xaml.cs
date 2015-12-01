@@ -21,6 +21,10 @@ namespace IBDownloader
     /// </summary>
     public partial class AppTheme : MetroWindow
     {
+        private string[] themes = {
+                            "BaseLight",
+                            "BaseDark"
+        };
         private string[] colors = {
                             "Red",
                             "Green",
@@ -50,7 +54,9 @@ namespace IBDownloader
             InitializeComponent();
 
             var CurrentTheme = ThemeManager.DetectAppStyle(Application.Current);
+            lstThemeStyle.SelectedIndex = Array.IndexOf(themes, CurrentTheme.Item1.Name);
             cmbAppColor.SelectedIndex = Array.IndexOf(colors, CurrentTheme.Item2.Name);
+            
         }
 
         private void btnApply_Click(object sender, RoutedEventArgs e)
@@ -74,10 +80,10 @@ namespace IBDownloader
             switch (lstThemeStyle.SelectedIndex)
             {
                 case 0:
-                    ChangeAppStyle(CurrentTheme.Item2.Name, "BaseLight");
+                    ChangeAppStyle(CurrentTheme.Item2.Name, themes[0]);
                         break;
                 case 1:
-                    ChangeAppStyle(CurrentTheme.Item2.Name, "BaseDark");
+                    ChangeAppStyle(CurrentTheme.Item2.Name, themes[1]);
                     break;
             }
         }
