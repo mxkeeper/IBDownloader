@@ -43,6 +43,12 @@ namespace IBDownloader
             if (ValidateURL() && IsSetOutputDir())
             {
                 Thread.Link = txtURL.Text;
+
+                if ((bool)chkFullThread.IsChecked)
+                    Thread.DownloadEntirePage = "X";
+                else
+                    Thread.DownloadEntirePage = string.Empty;
+
                 List<Thread> Threads = _MainWindow.Threads;
                 Threads.Add(Thread);
                 _MainWindow.Threads = Threads;
@@ -105,6 +111,16 @@ namespace IBDownloader
         private void MetroWindow_Closed(object sender, EventArgs e)
         {
             _MainWindow.Activate();
+        }
+
+        private void chkFullThread_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void chkFullThread_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -4,9 +4,9 @@ It's simple Imageboard download manager written on C# with use of advanced techn
 ## Features
 * Support arhivach.org and 2ch.hk
 * Download everything from thread (including images, videos and etc)
+* Autoupdate threads
 * Unlimited number of threads
 
 ## ToDo
-* Autocheck thread on update
 * Download the entire thread
 * What you will ask

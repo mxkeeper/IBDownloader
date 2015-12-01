@@ -7,11 +7,12 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Closed="MetroWindow_Closed"
-        Title="Архивач | Images Downloader" Height="184.423" Width="419.508" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="Архивач | Images Downloader" Height="225.576" Width="419.508" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
         <TextBox Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Ссылка на тред" x:Name="txtURL" HorizontalAlignment="Center" Height="27" Margin="26,26,22,0" AcceptsReturn="True" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="366" FontSize="13.333"/>
         <TextBox Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Куда сохраняем" x:Name="txtOutputDir" HorizontalAlignment="Center" Height="27" Margin="26,62,54,0" AcceptsReturn="True" TextWrapping="NoWrap"  VerticalAlignment="Top" Width="334" FontSize="13.333"/>
-        <Button x:Name="btnAddThread" Content="Добавить" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Width="108" FontSize="10.667" Click="btnAddThread_Click"/>
+        <Button x:Name="btnAddThread" Content="Добавить" HorizontalAlignment="Center" Margin="0,155,0,0" VerticalAlignment="Top" Width="108" FontSize="10.667" Click="btnAddThread_Click"/>
         <Button x:Name="btnOpenOutputDir" Content="..." HorizontalAlignment="Left" Margin="365,62,0,0" VerticalAlignment="Top" Width="27" Height="27" Click="btnOpenOutputDir_Click"/>
+        <CheckBox x:Name="chkFullThread" Content="Скачать тред целиком(страница и картинки)" HorizontalAlignment="Center" Margin="26,94,110,58" Checked="chkFullThread_Checked" Unchecked="chkFullThread_Unchecked" Width="278"/>
     </Grid>
 </Controls:MetroWindow>
