@@ -12,6 +12,8 @@ namespace IBDownloader
     {
         private int _MaxConcurrentDownloads = 1;
         private int _MaxConnectionPerServer = 1;
+        // Время обновления треда по умолчанию 5 мин
+        private int _AutoUpdateInterval = 5;
         private bool _AutoRefresh = false;
 
         public int MaxConcurrentDownloads
@@ -32,12 +34,21 @@ namespace IBDownloader
             set { _AutoRefresh = value; }
         }
 
+        public int AutoUpdateInterval
+        {
+            get { return _AutoUpdateInterval; }
+            set { _AutoUpdateInterval = value; }
+        }
+
         public void Save()
         {
             var theme = ThemeManager.DetectAppStyle(Application.Current);
 
             Properties.Settings.Default["AppTheme"] = theme.Item1.Name;
             Properties.Settings.Default["AppColor"] = theme.Item2.Name;
+            Properties.Settings.Default["AutoRefresh"] = AutoRefresh;
+            Properties.Settings.Default["AutoUpdateInterval"] = AutoUpdateInterval;
+            
             Properties.Settings.Default.Save();
         }
 
@@ -53,6 +64,9 @@ namespace IBDownloader
             ThemeManager.ChangeAppStyle(Application.Current,
                                         ThemeManager.GetAccent(AppColor),
                                         ThemeManager.GetAppTheme(AppTheme));
+
+            AutoRefresh = Convert.ToBoolean(Properties.Settings.Default["AutoRefresh"].ToString());
+            AutoUpdateInterval = Convert.ToInt32(Properties.Settings.Default["AutoUpdateInterval"].ToString());
         }
     }
 }

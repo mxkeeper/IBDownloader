@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -24,11 +25,14 @@ namespace IBDownloader
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string msgSuccessful = "Завершено успешно";
         private const string msgInQueue = "В очереди";
         private const string msgInProgress = "Скачиваем";
+        private const string msgSuccessful = "Завершено успешно";
+        private const string msgAutoRefresh = "Автообновление";
         private const string msgError = "Ошибка скачивания";
 
+
+        private DispatcherTimer dspTimer = new DispatcherTimer();
         private Options Options = new Options();
         private ProgressBar prbProgress;
         private List<Thread> _Threads = new List<Thread>();
@@ -46,11 +50,18 @@ namespace IBDownloader
             }
         }
 
+        private void ReStartTimer()
+        {
+            if (dspTimer.IsEnabled) dspTimer.Stop();
+            Options.AutoUpdateInterval = (int)numAutoUpdateTime.Value;
+            dspTimer.Tick += new EventHandler(dspTimer_Tick);
+            dspTimer.Interval = new TimeSpan(0, Options.AutoUpdateInterval, 0);
+            dspTimer.Start();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            //chkAutoRefresh.Visibility = Visibility.Hidden;            
-            
             // Загружаем настройки
             Options.Load();
         }
@@ -60,7 +71,12 @@ namespace IBDownloader
             Threads[CurrentThreadProcessing].ProgressBarVal = downloadedFilesCounter;
             // Если все ссылки скачаны — устанавливаем статус
             if (downloadedFilesCounter == LinksCount)
-                Threads[CurrentThreadProcessing].Status = msgSuccessful;
+            {
+                if (Options.AutoRefresh)
+                    Threads[CurrentThreadProcessing].Status = msgAutoRefresh;
+                else
+                    Threads[CurrentThreadProcessing].Status = msgSuccessful;
+            }
 
             // Обращение к основному потоку
             this.Dispatcher.Invoke((Action)(() =>
@@ -80,7 +96,7 @@ namespace IBDownloader
         private void btnDownload_Click(object sender, RoutedEventArgs e)
         {
             try
-            {            
+            {
                 DownloadThreads(Threads, sender, e);
             }
             catch (Exception exp)
@@ -96,48 +112,39 @@ namespace IBDownloader
             {
                 int i = 0;
                 CurrentThreadProcessing = 0;
-                IsDownloading = true;                
+                IsDownloading = true;
                 BlockButtons();
                 // Скачиваем каждый тред из списка
                 foreach (var Thread in Threads)
                 {
-                    if (Thread.Status != msgSuccessful)
+                    //if (Thread.Status != msgSuccessful)
+                    //{
+                    // Обновляем статус закачки
+                    Threads[i].Status = msgInProgress;
+                    // Извлекаем ссылки для скачивания
+                    List<string> Links = await GetLinks(Thread);
+                    // Находим нужный ProgressBar в колонке ListView
+                    prbProgress = GetProgressBar(i);
+                    // Установка максимального значения ProgressBar (кол-во ссылок для скачивания)
+                    this.Dispatcher.Invoke((Action)(() =>
                     {
-                        // Список ссылок для закачки
-                        List<string> Links = new List<string>();
-                        // Определяем тип борды по ссылке
-                        Board Board = AnalyzerLinks.Do(Thread.Link);
-                        // Обновляем статус закачки
-                        Threads[i].Status = msgInProgress;
-                        Downloader Downloader = new Downloader(this, Options);
-                        // Задаём папку для сохранения текущего треда, обрамляя путь C:\folder —> "C:\folder"
-                        Downloader.SavePath = Utils.AddQuoteMark(Thread.OutputDir);
-                        // Получаем список ссылок для закачки
-                        switch (Board)
-                        {
-                            case Board.Arhivach:
-                                Arhivach Arhivach = new Arhivach();
-                                Links = await Arhivach.GetLinksToDownload(Thread.Link);
-                                break;
-                            case Board.Dvach:
-                                Dvach Dvach = new Dvach();
-                                Links = await Dvach.GetLinksToDownload(Thread.Link);
-                                break;
-                        }
-                        LinksCount = Links.Count;
+                        prbProgress.Maximum = LinksCount;
+                    }));
 
-                        // Установка максимального значения ProgressBar (кол-во ссылок для скачивания)
-                        prbProgress = GetProgressBar(i);
-                        this.Dispatcher.Invoke((Action)(() =>
-                        {
-                            prbProgress.Maximum = LinksCount;
-                        }));
+                    Downloader Downloader = new Downloader(this, Options);
+                    // Задаём папку для сохранения текущего треда, обрамляя путь C:\folder —> "C:\folder"
+                    Downloader.SavePath = Utils.AddQuoteMark(Thread.OutputDir);
 
-                        if (await Downloader.DownloadList(Links))
-                            Threads[i].Status = msgSuccessful;
+                    if (await Downloader.DownloadList(Links))
+                    {
+                        if (Options.AutoRefresh)
+                            Threads[CurrentThreadProcessing].Status = msgAutoRefresh;
                         else
-                            Threads[i].Status = msgError;
+                            Threads[CurrentThreadProcessing].Status = msgSuccessful;
                     }
+                    else
+                        Threads[i].Status = msgError;
+                    //}
                     i++;
                     CurrentThreadProcessing++;
                 }
@@ -148,6 +155,34 @@ namespace IBDownloader
             {
                 btnAddThreadURL_Click(sender, e);
             }
+        }
+
+        private async Task<List<string>> GetLinks(Thread Thread)
+        {
+            // Список ссылок для закачки
+            List<string> Links = new List<string>();
+            // Определяем тип борды по ссылке
+            Board Board = AnalyzerLinks.Do(Thread.Link);
+            // Получаем список ссылок для закачки
+            switch (Board)
+            {
+                case Board.Arhivach:
+                    Arhivach Arhivach = new Arhivach();
+                    Links = await Arhivach.GetLinksToDownload(Thread.Link);
+                    break;
+                case Board.Dvach:
+                    Dvach Dvach = new Dvach();
+                    Links = await Dvach.GetLinksToDownload(Thread.Link);
+                    break;
+            }
+            LinksCount = Links.Count;
+
+            return Links;
+        }
+
+        private void dspTimer_Tick(object sender, EventArgs e)
+        {
+            DownloadThreads(Threads, sender, new RoutedEventArgs());
         }
 
         private void btnAddThreadURL_Click(object sender, RoutedEventArgs e)
@@ -162,7 +197,7 @@ namespace IBDownloader
             // Удаляем выделенные треды из списка
             if (lstViewURLs.SelectedItems.Count > 0)
             {
-                foreach (ListViewItem eachItem in lstViewURLs.SelectedItems)
+                foreach (var eachItem in lstViewURLs.SelectedItems)
                 {
                     lstViewURLs.Items.Remove(eachItem);
                     int index = lstViewURLs.Items.IndexOf(eachItem);
@@ -224,21 +259,47 @@ namespace IBDownloader
         private void chkAutoRefresh_Checked(object sender, RoutedEventArgs e)
         {
             Options.AutoRefresh = true;
+            numAutoUpdateTime.IsEnabled = true;
+            ChangeStatusOnSuccessful(msgAutoRefresh);
+            ReStartTimer();
         }
 
         private void chkAutoRefresh_Unchecked(object sender, RoutedEventArgs e)
         {
             Options.AutoRefresh = false;
+            numAutoUpdateTime.IsEnabled = false;
+            ChangeStatusOnSuccessful(msgSuccessful);
+            dspTimer.Stop();
+        }
+
+        private void ChangeStatusOnSuccessful(string status)
+        {
+            for (int i = 0; i < Threads.Count; i++)
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    lstViewURLs.Items[i] = new Thread()
+                    {
+                        Link = Threads[i].Link,
+                        OutputDir = Threads[i].OutputDir,
+                        DownloadEntirePage = Threads[i].DownloadEntirePage,
+                        Progress = Threads[i].ProgressBarVal + "/" + LinksCount,
+                        Status = status
+                    };
+                }));
+            }
         }
 
         private void btnChangeStyle_Click(object sender, RoutedEventArgs e)
         {
-            /*
             AppTheme AppTheme = new AppTheme();
             AppTheme.Owner = this;
             AppTheme.Show();
-            */
+        }
 
+        private void numAutoUpdateTime_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            ReStartTimer();
         }
     }
 }

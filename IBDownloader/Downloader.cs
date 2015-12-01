@@ -50,9 +50,10 @@ namespace IBDownloader
                     "--max-connection-per-server=" + _Options.MaxConnectionPerServer +
                     " --max-concurrent-downloads=" + _Options.MaxConcurrentDownloads +
                     " --uri-selector=inorder " +
-                    "--user-agent=Chrome/46.0.2490.86" +
-                    "--check-certificate=false" +
+                    "--user-agent=Chrome/46.0.2490.86 " +
+                    "--check-certificate=false " +
                     "--conditional-get=true " +
+                    "--auto-file-renaming=false " +
                     "-d " + savePath +
                     " -i " + FileListPath;
 
@@ -99,6 +100,11 @@ namespace IBDownloader
             }
         }
 
+        /// <summary>
+        /// Принимаем данные из потока ввывода, считаем сколько файлов скачали.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void proc_DataReceived(object sender, DataReceivedEventArgs e)
         {
             if (!String.IsNullOrEmpty(e.Data))
