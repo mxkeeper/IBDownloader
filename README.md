@@ -11,5 +11,4 @@ It's simple Imageboard download manager written on C# with use of advanced techn
 * Download the entire thread
 * What you will ask
 
-##TOFIX
-Autoupdate bug: over index out of range array, CurrentThreadProcessing = 2 when we have [0, 1] in Threads
+## ToFix
