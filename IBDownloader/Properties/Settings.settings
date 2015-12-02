@@ -8,6 +8,10 @@
     <Setting Name="AppTheme" Type="System.String" Scope="User">
       <Value Profile="(Default)">BaseLight</Value>
     </Setting>
+<<<<<<< HEAD
+=======
+
+>>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
     <Setting Name="AutoUpdateInterval" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>

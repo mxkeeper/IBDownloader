@@ -53,3 +53,6 @@ C:\Users\YuYu\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\bi
 C:\Users\YuYu\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\bin\Release\Hardcodet.Wpf.TaskbarNotification.pdb
 C:\Users\YuYu\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\bin\Release\Hardcodet.Wpf.TaskbarNotification.xml
 C:\Users\YuYu\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\obj\Release\IBDownloader.csprojResolveAssemblyReference.cache
+C:\Users\Михаил\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll
+C:\Users\Михаил\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\bin\Release\Hardcodet.Wpf.TaskbarNotification.pdb
+C:\Users\Михаил\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\bin\Release\Hardcodet.Wpf.TaskbarNotification.xml
