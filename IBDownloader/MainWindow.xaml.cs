@@ -31,14 +31,14 @@ namespace IBDownloader
         private const string msgAutoRefresh = "Автообновление";
         private const string msgError = "Ошибка скачивания";
 
-
         private DispatcherTimer dspTimer = new DispatcherTimer();
-        private Options Options = new Options();
         private ProgressBar prbProgress;
         private List<Thread> _Threads = new List<Thread>();
         private int CurrentThreadProcessing = 0;
         private int LinksCount = 0;
         private bool IsDownloading = false;
+
+        public Options Options = new Options();
 
         public List<Thread> Threads
         {
@@ -53,10 +53,9 @@ namespace IBDownloader
         private void ReStartTimer()
         {
             if (dspTimer.IsEnabled) dspTimer.Stop();
-<<<<<<< HEAD
+
             Options.AutoUpdateInterval = (int)numAutoUpdateTime.Value;
-=======
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
+
             dspTimer.Tick += new EventHandler(dspTimer_Tick);
             dspTimer.Interval = new TimeSpan(0, Options.AutoUpdateInterval, 0);
             dspTimer.Start();
@@ -65,10 +64,7 @@ namespace IBDownloader
         public MainWindow()
         {
             InitializeComponent();
-<<<<<<< HEAD
-=======
 
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
             // Загружаем настройки
             Options.Load();
         }
@@ -165,7 +161,9 @@ namespace IBDownloader
                     CurrentThreadProcessing++;
                 }
                 IsDownloading = false;
-                UnlockButtons();
+
+                if (!Options.AutoRefresh)
+                    UnlockButtons();
             }
             else
             {
@@ -243,7 +241,8 @@ namespace IBDownloader
             btnDownload.IsEnabled = false;
             btnAddThreadURL.IsEnabled = false;
             btnRemoveThreadURL.IsEnabled = false;
-            chkAutoRefresh.IsEnabled = false;
+            if (!Options.AutoRefresh)
+                chkAutoRefresh.IsEnabled = false;
         }
 
         private void UnlockButtons()
@@ -251,7 +250,8 @@ namespace IBDownloader
             btnDownload.IsEnabled = true;
             btnAddThreadURL.IsEnabled = true;
             btnRemoveThreadURL.IsEnabled = true;
-            chkAutoRefresh.IsEnabled = true;
+            if (!Options.AutoRefresh)
+                chkAutoRefresh.IsEnabled = true;
         }
 
 
@@ -285,12 +285,12 @@ namespace IBDownloader
             btnDownload.IsEnabled = false;
             btnRemoveThreadURL.IsEnabled = false;
             Options.AutoRefresh = true;
-<<<<<<< HEAD
-            numAutoUpdateTime.IsEnabled = true;
+
+            numAutoUpdateTime.IsEnabled = false;
             ChangeStatusOnSuccessful(msgAutoRefresh);
-=======
+
             ChangeStatus(msgAutoRefresh);
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
+
             ReStartTimer();
         }
 
@@ -300,20 +300,19 @@ namespace IBDownloader
             btnDownload.IsEnabled = true;
             btnRemoveThreadURL.IsEnabled = true;
             Options.AutoRefresh = false;
-<<<<<<< HEAD
-            numAutoUpdateTime.IsEnabled = false;
+
+            numAutoUpdateTime.IsEnabled = true;
             ChangeStatusOnSuccessful(msgSuccessful);
             dspTimer.Stop();
         }
 
         private void ChangeStatusOnSuccessful(string status)
-=======
+        {
             ChangeStatus(msgSuccessful);
             dspTimer.Stop();
         }
 
         private void ChangeStatus(string status)
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
         {
             for (int i = 0; i < Threads.Count; i++)
             {
@@ -324,18 +323,13 @@ namespace IBDownloader
                         Link = Threads[i].Link,
                         OutputDir = Threads[i].OutputDir,
                         DownloadEntirePage = Threads[i].DownloadEntirePage,
-<<<<<<< HEAD
-                        Progress = Threads[i].ProgressBarVal + "/" + LinksCount,
-                        Status = status
-                    };
-=======
                         Progress = Threads[i].ProgressBarVal + "/" + Threads[i].ProgressBarVal,
                         Status = status
                     };
                     // Находим нужный ProgressBar в колонке ListView
                     prbProgress = GetProgressBar(i);
                     prbProgress.Value = Threads[i].ProgressBarVal;
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
+
                 }));
             }
         }
@@ -347,17 +341,12 @@ namespace IBDownloader
             AppTheme.Show();
         }
 
-<<<<<<< HEAD
-        private void numAutoUpdateTime_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            ReStartTimer();
-=======
         private void numAutoUpdateTime_ValueChanged(object sender, RoutedPropertyChangedEventArgs<System.Nullable<double>> e)
         {
             Options.AutoUpdateInterval = (int)numAutoUpdateTime.Value;
             if (Options.AutoRefresh)
                 ReStartTimer();
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
+
         }
     }
 }

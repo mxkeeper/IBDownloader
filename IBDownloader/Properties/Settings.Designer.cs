@@ -70,5 +70,17 @@ namespace IBDownloader.Properties {
                 this["AutoRefresh"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastFolder {
+            get {
+                return ((string)(this["LastFolder"]));
+            }
+            set {
+                this["LastFolder"] = value;
+            }
+        }
     }
 }

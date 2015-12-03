@@ -15,6 +15,7 @@ namespace IBDownloader
         // Время обновления треда по умолчанию 5 мин
         private int _AutoUpdateInterval = 5;
         private bool _AutoRefresh = false;
+        private string _LastFolder;
 
         public int MaxConcurrentDownloads
         {
@@ -40,22 +41,24 @@ namespace IBDownloader
             set { _AutoUpdateInterval = value; }
         }
 
+        public string LastFolder
+        {
+            get { return _LastFolder; }
+            set { _LastFolder = value; }
+        }
+
         public void Save()
         {
             var theme = ThemeManager.DetectAppStyle(Application.Current);
 
             Properties.Settings.Default["AppTheme"] = theme.Item1.Name;
             Properties.Settings.Default["AppColor"] = theme.Item2.Name;
-<<<<<<< HEAD
-            Properties.Settings.Default["AutoRefresh"] = AutoRefresh;
-            Properties.Settings.Default["AutoUpdateInterval"] = AutoUpdateInterval;
-            
-=======
 
             Properties.Settings.Default["AutoRefresh"] = AutoRefresh;
             Properties.Settings.Default["AutoUpdateInterval"] = AutoUpdateInterval;
 
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
+            Properties.Settings.Default["LastFolder"] = LastFolder;
+
             Properties.Settings.Default.Save();
         }
 
@@ -71,15 +74,11 @@ namespace IBDownloader
             ThemeManager.ChangeAppStyle(Application.Current,
                                         ThemeManager.GetAccent(AppColor),
                                         ThemeManager.GetAppTheme(AppTheme));
-<<<<<<< HEAD
+
 
             AutoRefresh = Convert.ToBoolean(Properties.Settings.Default["AutoRefresh"].ToString());
             AutoUpdateInterval = Convert.ToInt32(Properties.Settings.Default["AutoUpdateInterval"].ToString());
-=======
-            AutoRefresh = Convert.ToBoolean(Properties.Settings.Default["AutoRefresh"].ToString());
-            AutoUpdateInterval = Convert.ToInt32(Properties.Settings.Default["AutoUpdateInterval"].ToString());
-
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
+            LastFolder = Properties.Settings.Default["LastFolder"].ToString();
         }
     }
 }

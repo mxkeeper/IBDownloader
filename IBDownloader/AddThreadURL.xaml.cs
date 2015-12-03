@@ -83,9 +83,11 @@ namespace IBDownloader
             using (Forms.FolderBrowserDialog fbd = new Forms.FolderBrowserDialog())
             {
                 fbd.Description = "Выберите папку для сохранения";
+                fbd.SelectedPath = _MainWindow.Options.LastFolder;
                 if (fbd.ShowDialog() == Forms.DialogResult.OK)
                 {
                     txtOutputDir.Text = fbd.SelectedPath;
+                    _MainWindow.Options.LastFolder = fbd.SelectedPath;
                     return true;
                 }
                 else return false;

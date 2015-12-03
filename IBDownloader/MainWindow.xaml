@@ -11,21 +11,14 @@
         Closing="MetroWindow_Closing"
         Title="ImageBoard Downloader" Height="340.812" Width="764.637" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
-<<<<<<< HEAD
-        <!--
-        <tb:TaskbarIcon x:Name="myNotifyIcon"
-                    IconSource="/../../1445605573_floppy-disk.ico"
-                    Visibility="Visible"
-                    ToolTipText="Fallback ToolTip for Windows xp"/>
-        -->
-=======
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
         <ListView x:Name="lstViewURLs" HorizontalAlignment="Left" Height="202" Margin="23,91,0,0" VerticalAlignment="Top" Width="714" BorderThickness="1">
             <ListView.Resources>
                 <DataTemplate x:Key="DownloadEntirePage">
                     <TextBlock HorizontalAlignment="Center" Text="{Binding DownloadEntirePage}"/>
                 </DataTemplate>
-
+                <DataTemplate x:Key="Status">
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding Status}"/>
+                </DataTemplate>
                 <DataTemplate x:Key="ProgressBar">
                     <Grid>
                         <ProgressBar x:Name="prbProgress" Value="{Binding ProgressBarVal}" Width="{Binding Path=Width, ElementName=ProgressCell}" Height="{Binding Path=Height, ElementName=ProgressCell}" Margin="0"/>
@@ -40,12 +33,8 @@
                         <GridViewColumn Header="Папка" Width="240" DisplayMemberBinding="{Binding OutputDir}"></GridViewColumn>
                         <GridViewColumn Header="W"  Width="30" CellTemplate="{StaticResource DownloadEntirePage}"></GridViewColumn>
                         <GridViewColumn Header="Прогресс" Width="100" CellTemplate="{StaticResource ProgressBar}"></GridViewColumn>
-                        <GridViewColumn Header="Статус" Width="130" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
-<<<<<<< HEAD
+                        <GridViewColumn Header="Статус" Width="130" CellTemplate="{StaticResource Status}"></GridViewColumn>
                     </GridView.Columns>
-=======
-                        </GridView.Columns>
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
                 </GridView>
             </ListView.View>
         </ListView>
@@ -64,17 +53,9 @@
         <StackPanel Orientation="Horizontal" Margin="409,7,308,225">
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
         </StackPanel>
-<<<<<<< HEAD
         <CheckBox x:Name="chkAutoRefresh" Content="Автообновление каждые" HorizontalAlignment="Center" Margin="410,11,135,263" Width="168" Checked="chkAutoRefresh_Checked" Unchecked="chkAutoRefresh_Unchecked"/>
-        <Controls:NumericUpDown x:Name="numAutoUpdateTime" IsEnabled="False" DataContextChanged="numAutoUpdateTime_DataContextChanged" TextAlignment="Center" Minimum ="1" Maximum = "1440" Interval ="1" Value="5" Margin="601,17,84,268" BorderThickness="0" RenderTransformOrigin="0.57,0.536"/>
+        <Controls:NumericUpDown x:Name="numAutoUpdateTime" ValueChanged="numAutoUpdateTime_ValueChanged" TextAlignment="Center" Minimum ="1" Maximum = "1440" Interval ="1" Value="5" Margin="601,17,84,268" BorderThickness="0" RenderTransformOrigin="0.57,0.536"/>
         <Label x:Name="lblAutoUpdateTime" Content="мин" HorizontalAlignment="Left" Margin="675,15,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnChangeStyle" Content="оформление" HorizontalAlignment="Left" Margin="513,55,0,0" VerticalAlignment="Top" Width="136" Click="btnChangeStyle_Click" Height="19"/>
+        <Button x:Name="btnChangeStyle" Content="оформление" HorizontalAlignment="Left" Margin="513,55,0,0" VerticalAlignment="Top" Width="136" Click="btnChangeStyle_Click" Height="19" FontSize="10.667" FontWeight="Bold"/>
     </Grid>
-=======
-        <CheckBox x:Name="chkAutoRefresh" IsEnabled="False" Content="Автообновление каждые" HorizontalAlignment="Center" Margin="410,11,135,263" Width="168" Checked="chkAutoRefresh_Checked" Unchecked="chkAutoRefresh_Unchecked"/>
-        <Controls:NumericUpDown x:Name="numAutoUpdateTime" Value="5" ValueChanged="numAutoUpdateTime_ValueChanged" TextAlignment="Center" Minimum ="1" Maximum = "1440" Interval ="1" Margin="601,17,84,268" BorderThickness="0" RenderTransformOrigin="0.57,0.536"/>
-        <Label x:Name="lblAutoUpdateTime" Content="мин" HorizontalAlignment="Left" Margin="675,15,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnChangeStyle" Content="оформление" HorizontalAlignment="Left" Margin="513,55,0,0" VerticalAlignment="Top" Width="136" Click="btnChangeStyle_Click" Height="19" FontSize="9.333"/>
-        </Grid>
->>>>>>> d199b7876238404cb4967447d03f0ed73d28d243
 </Controls:MetroWindow>
