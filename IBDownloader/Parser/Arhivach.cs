@@ -26,7 +26,7 @@ namespace IBDownloader.Parser
                     HtmlNodeCollection Nodes = htmlDoc.DocumentNode.SelectNodes("//a[@class=\"expand_image\"]");
 
                     foreach (HtmlNode Node in Nodes)
-                        resultList.Add(ExtractImageURL(Node.OuterHtml));
+                        resultList.Add(Utils.HTTPtoHTTPS(ExtractImageURL(Node.OuterHtml)));
                 }
             }
             else
