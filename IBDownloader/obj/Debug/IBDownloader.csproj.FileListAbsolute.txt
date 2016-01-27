@@ -73,3 +73,4 @@ C:\Users\YuYu\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\ob
 C:\Users\YuYu\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\obj\Debug\AppTheme.baml
 C:\Users\Михаил\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\obj\Debug\AppTheme.g.cs
 C:\Users\Михаил\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\obj\Debug\AppTheme.baml
+C:\Users\Михаил\Documents\Visual Studio 2015\Projects\IBDownloader\IBDownloader\bin\Debug\MahApps.Metro.pdb

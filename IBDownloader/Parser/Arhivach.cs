@@ -26,7 +26,7 @@ namespace IBDownloader.Parser
                     HtmlNodeCollection Nodes = htmlDoc.DocumentNode.SelectNodes("//a[@class=\"expand_image\"]");
 
                     foreach (HtmlNode Node in Nodes)
-                        resultList.Add(Utils.HTTPtoHTTPS(ExtractImageURL(Node.OuterHtml)));
+                        resultList.Add(ExtractImageURL(Node.OuterHtml));
                 }
             }
             else
@@ -50,7 +50,9 @@ namespace IBDownloader.Parser
             int IndexBeginLink = input.IndexOf("http");
             int IndexEndLink = IndexOfNth(input, '\'', 4);
 
-            return input.Substring(IndexBeginLink, IndexEndLink - IndexBeginLink);
+            string result = input.Substring(IndexBeginLink, IndexEndLink - IndexBeginLink);
+
+            return Utils.HTTPtoHTTPS(result);
         }
     }
 }
