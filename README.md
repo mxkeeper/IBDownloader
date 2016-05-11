@@ -8,7 +8,6 @@ It's simple Imageboard download manager written on C# with use of advanced techn
 * Unlimited number of threads
 
 ## ToDo
-* Make security fix: force HTTPS connection for download
 * Download the entire thread
 * What you will ask
 
