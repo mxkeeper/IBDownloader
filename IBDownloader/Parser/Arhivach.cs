@@ -52,7 +52,7 @@ namespace IBDownloader.Parser
 
             string result = input.Substring(IndexBeginLink, IndexEndLink - IndexBeginLink);
 
-            return Utils.HTTPtoHTTPS(result);
+            return result;
         }
     }
 }

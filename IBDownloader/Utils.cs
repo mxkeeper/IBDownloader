@@ -41,10 +41,5 @@ namespace IBDownloader
             return sb.ToString();
         }
         #endregion
-
-        public static string HTTPtoHTTPS(string input)
-        {
-            return input.Replace("http","https");
-        }
     }
 }
