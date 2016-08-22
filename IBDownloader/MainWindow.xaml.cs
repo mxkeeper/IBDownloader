@@ -156,7 +156,7 @@ namespace IBDownloader
                     }
                     else
                         Threads[i].Status = msgError;
-                    //}
+
                     i++;
                     CurrentThreadProcessing++;
                 }

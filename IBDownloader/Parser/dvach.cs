@@ -24,10 +24,10 @@ namespace IBDownloader.Parser
             if (htmlDoc.DocumentNode != null)
             {
                 // Выделяем тег, содержащий ссылку на картинку
-                HtmlNodeCollection Nodes = htmlDoc.DocumentNode.SelectNodes("//div[@class=\"image-link\"]");
+                HtmlNodeCollection Nodes = htmlDoc.DocumentNode.SelectNodes("//a[@class=\"desktop\"]");
 
                 foreach (HtmlNode Node in Nodes)
-                    resultList.Add(ExtractImageURL(Node.InnerHtml));
+                    resultList.Add(ExtractImageURL(Node.Attributes["href"].Value));
             }
             else
             {
@@ -45,7 +45,7 @@ namespace IBDownloader.Parser
             int IndexBeginLink = IndexOfNth(url,'/',3);
             int IndexEndLink = IndexOfNth(url, '/', 4);
 
-            Board = url.Substring(IndexBeginLink, IndexEndLink - IndexBeginLink) + "/";
+            Board = url.Substring(IndexBeginLink, IndexEndLink - IndexBeginLink);
         }
 
         /// <summary>
@@ -56,13 +56,7 @@ namespace IBDownloader.Parser
         /// <returns></returns>
         internal override string ExtractImageURL(string input)
         {
-            int IndexBeginLink = input.IndexOf(".\\", 1);
-            int IndexEndLink = IndexOfNth(input, '"', 12);
-
-            input = input.Substring(IndexBeginLink, IndexEndLink - IndexBeginLink).Remove(input.Length -1);
-
-            input = input.Replace("..", Board);
-            return input.Replace(Board, "https://2ch.hk" + Board);
+            return input.Replace("..", "https://2ch.hk" + Board);
         }
     }
 }
